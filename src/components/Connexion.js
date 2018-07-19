@@ -3,8 +3,9 @@ import React from 'react';
 class Connexion extends React.Component {
 
 	goTOChat = e =>{
-		e.preventDefault();
-		console.log(this.pseudoInput.value)
+		e.preventDefault();	
+		const pseudo = this.pseudoInput.value
+		this.context.router.transitionTo(`pseudo/${pseudo}`)		
 	}
 	render() {
 		return (
@@ -23,6 +24,9 @@ class Connexion extends React.Component {
 			</div>
 		)
 	}
+	static contextTypes = {
+			router: React.PropTypes.object		
+		}
 }
 
 
