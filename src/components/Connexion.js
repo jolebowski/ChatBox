@@ -2,7 +2,7 @@ import React from 'react';
 
 class Connexion extends React.Component {
 
-	goTOChat = e =>{
+	goTOChat = e =>{	
 		e.preventDefault();	
 		const pseudo = this.pseudoInput.value
 		this.context.router.transitionTo(`pseudo/${pseudo}`)		
