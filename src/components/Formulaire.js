@@ -1,15 +1,24 @@
 import React from 'react';
 
 class Formulaire extends React.Component {
+	state = {
+		length: this.props.length
+	}
 	createMessage = e =>{
 		e.preventDefault();			
-		console.log(this.message.value)
-		const message = this.message.value;
+		const message = {
+			message: this.message.value,
+			pseudo: this.props.pseudo
+		};
 		this.props.addMessage(message);
-
 		//reset
-
 		this.messageForm.reset();
+		const length = this.state.length
+		this.setState({ length })
+	}
+	compteur = e =>{
+		const length = this.props.length - this.message.value.length;
+		this.setState({ length })
 	}
 	render() {
 		return (
@@ -20,12 +29,13 @@ class Formulaire extends React.Component {
 				>
 				<textarea 
 					required
-					maxLength="140"
+					maxLength={this.props.length}
 					ref={input => this.message = input}
+					onChange={e => this.compteur(e)}
 				>
 				</textarea>
 				<div className="info" >
-						140
+						{this.state.length}
 				</div>
 				<button type="submit" >
 						Envoyer!
