@@ -1,12 +1,18 @@
 import React from 'react';
 import Message from './Message';
 import Formulaire from './Formulaire';
+import base from '../bdd'
 
 class App extends React.Component {
 	state = {
 		messages: {
-
 		}
+	}
+	componentWillMount(){
+		this.ref = base.syncState('/', {
+			context: this,
+			state: 'messages'
+		});
 	}
 	addMessage = message => {
 		//copier le state 
@@ -15,7 +21,9 @@ class App extends React.Component {
 		//on ajoute le message avec une clé timestamp
 		const timestamp = Date.now()
 		console.log(timestamp)
-		messages[`message-${timestamp}`] = message
+		messages[`message-${timestamp}`] = message;
+		//suppr des msgs si plus de 10 
+		Object.keys(messages).splice(0, -10).map(key => messages[key] = null);
 		//Mettre a jour le state
 		this.setState({ messages })
 	}
